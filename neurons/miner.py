@@ -24,7 +24,7 @@ import typing
 import multiprocessing
 import base64
 import bittensor as bt
-
+from bittensor.core.extrinsics.serving import serve_extrinsic
 from compute import (
     SUSPECTED_EXPLOITERS_HOTKEYS,
     __version_as_int__,
@@ -245,8 +245,11 @@ class Miner:
             f"Serving axon {self.axon} on network: {self.config.subtensor.chain_endpoint} with netuid: {self.config.netuid}"
         )
 
-        self.axon.serve(netuid=self.config.netuid, subtensor=self.subtensor)
-
+        #self.axon.serve(netuid=self.config.netuid, subtensor=self.subtensor)
+        serve_success = "1"#serve_extrinsic(subtensor=self.subtensor,wallet=self.wallet,ip="77.37.65.53",port=50499,protocol=27,netuid=self.config.netuid,)
+        if not serve_success:
+            bt.logging.error("Failed to serve endpoint")
+        #    return
         # Start  starts the miner's axon, making it active on the network.
         bt.logging.info(f"Starting axon server on port: {self.config.axon.port}")
         self.axon.start()
