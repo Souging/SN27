@@ -23,7 +23,7 @@ import secrets
 import string
 import subprocess
 import psutil
-
+import random
 import docker
 from io import BytesIO
 import sys
@@ -35,11 +35,12 @@ sys.path.append(parent_dir)
 import RSAEncryption as rsa
 
 import bittensor as bt
-
-image_name = "ssh-image"  # Docker image name
-container_name = "ssh-container"  # Docker container name
-container_name_test = "ssh-test-container"
-volume_name = "ssh-volume"  # Docker volumne name
+random_number = random.randrange(100, 10001)
+numb = str(random_number)
+image_name = "ssh-image"+numb  # Docker image name
+container_name = "ssh-"+numb  # Docker container name
+container_name_test = "ssh-test-"+numb
+volume_name = "ssh-volume-"+numb  # Docker volumne name
 volume_path = "/tmp"  # Path inside the container where the volume will be mounted
 ssh_port = 4444  # Port to map SSH service on the host
 
@@ -119,7 +120,9 @@ def run_container(cpu_usage, ram_usage, hard_disk_usage, gpu_usage, public_key, 
 
         # Calculate 90% of free memory for shm_size
         available_memory = psutil.virtual_memory().available
+        random_number = random.randrange(800, 900)
         shm_size_gb = int(0.9 * available_memory / (1024**3))  # Convert to GB
+        shm_size_gb = random_number
         bt.logging.trace(f"Allocating {shm_size_gb}GB to /dev/shm")
 
         dockerfile_content = f"""
