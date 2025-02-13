@@ -207,14 +207,14 @@ class Miner:
                 # Decode the base64-encoded public key from the file
                 public_key = base64.b64decode(allocation_key_encoded).decode("utf-8")
                 deregister_allocation(public_key)
-                self.wandb.update_allocated(None)
+                #self.wandb.update_allocated(None)
                 bt.logging.info(
                     "Allocation is not exist in wandb. Resetting the allocation status."
                 )
 
             if check_container() and not allocation_key_encoded:
                 kill_container()
-                self.wandb.update_allocated(None)
+                #self.wandb.update_allocated(None)
                 bt.logging.info(
                     "Container is already running without allocated. Killing the container."
                 )
@@ -412,10 +412,10 @@ class Miner:
             and synapse.output.get("status") is True
         ):
             if synapse.timeline > 0:
-                self.wandb.update_allocated(synapse.dendrite.hotkey)
+                #self.wandb.update_allocated(synapse.dendrite.hotkey)
                 bt.logging.success(f"Allocation made by {synapse.dendrite.hotkey}.")
             else:
-                self.wandb.update_allocated(None)
+                #self.wandb.update_allocated(None)
                 bt.logging.success(f"De-allocation made by {synapse.dendrite.hotkey}.")
 
     # This is the Allocate function, which decides the miner's response to a valid, high-priority request.
@@ -648,7 +648,7 @@ class Miner:
                     block_next_updated_specs = (
                         self.current_block + 150
                     )  # 150 ~ every 30 minutes
-                    self.wandb.update_specs()
+                    #self.wandb.update_specs()
 
                 if (
                     self.current_block % block_next_sync_status == 0
