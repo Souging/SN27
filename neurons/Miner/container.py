@@ -78,7 +78,7 @@ def kill_container():
                 running_container_test.exec_run(cmd="kill -15 1")
                 running_container_test.wait()
             running_container_test.remove()
-            bt.logging.info(f"Container '{container_name_test}' was killed successfully")
+            bt.logging.info(f"Container 'ssh-test-container' was killed successfully")
         elif running_container:
             if running_container.status == "running":
                 running_container.exec_run(cmd="kill -15 1")
@@ -269,11 +269,11 @@ def build_check_container(image_name: str, container_name: str):
         # Build the Docker image
         bt.logging.info("Building the Docker image... this may take a few minutes during the initial installation.")
         image, _ = client.images.build(fileobj=f, tag=image_name)
-        bt.logging.trace(f"Docker image '{image_name}' built successfully.")
+        bt.logging.trace(f"Docker image ssh-image built successfully.")
 
         # Create the container from the built image
         container = client.containers.create(image_name, name=container_name)
-        bt.logging.trace(f"Container '{container_name}' created successfully.")
+        bt.logging.trace(f"Container ssh-container created successfully.")
         return container
 
     except docker.errors.BuildError as e:
