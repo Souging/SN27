@@ -678,17 +678,17 @@ class Miner:
                     self.blocks_done.clear()
                     self.blocks_done.add(self.current_block)
 
-                bt.logging.info(
-                    f"Block: {self.current_block} | "
-                    f"Stake: {self.metagraph.S[self.miner_subnet_uid]:.4f} | "
-                    f"Trust: {self.metagraph.T[self.miner_subnet_uid]:.4f} | "
-                    f"Consensus: {self.metagraph.C[self.miner_subnet_uid]:.6f} | "
-                    f"Incentive: {self.metagraph.I[self.miner_subnet_uid]:.6f} | "
-                    f"Emission: {self.metagraph.E[self.miner_subnet_uid]:.6f} | "
+                #bt.logging.info(
+                #    f"Block: {self.current_block} | "
+                #    f"Stake: {self.metagraph.S[self.miner_subnet_uid]:.4f} | "
+                #    f"Trust: {self.metagraph.T[self.miner_subnet_uid]:.4f} | "
+                #    f"Consensus: {self.metagraph.C[self.miner_subnet_uid]:.6f} | "
+                #    f"Incentive: {self.metagraph.I[self.miner_subnet_uid]:.6f} | "
+                #    f"Emission: {self.metagraph.E[self.miner_subnet_uid]:.6f} | "
                     #f"update_validator: #{block_next_updated_validator} ~ {time_next_updated_validator} | "
-                    f"Sync_status: #{block_next_sync_status} ~ {time_next_sync_status} | "
-                    f"Allocated: {'Yes' if self.allocation_status else 'No'}"
-                )
+                #    f"Sync_status: #{block_next_sync_status} ~ {time_next_sync_status} | "
+                #    f"Allocated: {'Yes' if self.allocation_status else 'No'}"
+                #)
                 time.sleep(5)
 
             except (RuntimeError, Exception) as e:
