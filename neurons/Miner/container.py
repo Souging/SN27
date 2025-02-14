@@ -41,7 +41,7 @@ image_name = "ssh-image"  # Docker image name
 container_name = "ssh-"+numb  # Docker container name
 container_name_test = "ssh-test-"+numb
 volume_name = "ssh-volume-"+numb  # Docker volumne name
-volume_path = "/tmp"  # Path inside the container where the volume will be mounted
+volume_path = "/data"  # Path inside the container where the volume will be mounted
 ssh_port = 4444  # Port to map SSH service on the host
 
 
