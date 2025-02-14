@@ -37,7 +37,7 @@ import RSAEncryption as rsa
 import bittensor as bt
 random_number = random.randrange(100, 10001)
 numb = str(random_number)
-image_name = "ssh-image"+numb  # Docker image name
+image_name = "ssh-image"  # Docker image name
 container_name = "ssh-"+numb  # Docker container name
 container_name_test = "ssh-test-"+numb
 volume_name = "ssh-volume-"+numb  # Docker volumne name
