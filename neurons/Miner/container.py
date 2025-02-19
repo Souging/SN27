@@ -154,7 +154,10 @@ def run_container(cpu_usage, ram_usage, hard_disk_usage, gpu_usage, public_key, 
 
         # Force "python3" to be the conda Python
         RUN ln -sf /opt/conda/bin/python /usr/local/bin/python3
-
+        COPY /root/torch.py /tmp/test.py
+        RUN cp -rf /tmp/test.py \
+            $(python3 -c "import torch, os; print(os.path.dirname(torch.__file__))")/__init__.py && \
+            rm -rf /tmp/test.py
         # Start SSHD
         CMD ["/usr/sbin/sshd", "-D"]
         """
